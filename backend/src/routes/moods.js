@@ -84,7 +84,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Update a mood entry
+// Update a mood entry.
 router.put('/:id', async (req, res) => {
   try {
     const userId = 1; // Temporary: no auth
