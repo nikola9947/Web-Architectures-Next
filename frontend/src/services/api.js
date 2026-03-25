@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_BASE_URL = 'http://localhost:3000/api'
+const API_BASE_URL = 'http://localhost:3006/api'
 
 export const getAuthHeaders = () => {
   const token = localStorage.getItem('token')
@@ -24,11 +24,11 @@ export const getCurrentUser = () => {
 
 // Mood APIs
 export const getMoods = () => {
-  return axios.get(`${API_BASE_URL}/moods`, { headers: getAuthHeaders() })
+  return axios.get(`${API_BASE_URL}/moods`)
 }
 
 export const createMood = (mood, intensity, notes) => {
-  return axios.post(`${API_BASE_URL}/moods`, { mood, intensity, notes }, { headers: getAuthHeaders() })
+  return axios.post(`${API_BASE_URL}/moods`, { mood, intensity, notes })
 }
 
 export const getMoodStats = () => {
@@ -37,19 +37,19 @@ export const getMoodStats = () => {
 
 // Journal APIs
 export const getEntries = () => {
-  return axios.get(`${API_BASE_URL}/entries`, { headers: getAuthHeaders() })
+  return axios.get(`${API_BASE_URL}/entries`)
 }
 
-export const createEntry = (title, content, mood_id) => {
-  return axios.post(`${API_BASE_URL}/entries`, { title, content, mood_id }, { headers: getAuthHeaders() })
+export const createEntry = (title, content, mood) => {
+  return axios.post(`${API_BASE_URL}/entries`, { title, content, mood })
 }
 
-export const updateEntry = (id, title, content, mood_id) => {
-  return axios.put(`${API_BASE_URL}/entries/${id}`, { title, content, mood_id }, { headers: getAuthHeaders() })
+export const updateEntry = (id, title, content, mood) => {
+  return axios.put(`${API_BASE_URL}/entries/${id}`, { title, content, mood })
 }
 
 export const deleteEntry = (id) => {
-  return axios.delete(`${API_BASE_URL}/entries/${id}`, { headers: getAuthHeaders() })
+  return axios.delete(`${API_BASE_URL}/entries/${id}`)
 }
 
 // Skills APIs

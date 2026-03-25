@@ -182,3 +182,104 @@
     border-right-color: var(--border);
   }
 }
+
+.journal-app {
+  max-width: 900px;
+  margin: 32px auto;
+  padding: 16px;
+  color: var(--text);
+}
+
+.journal-app h1 {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.form-section,
+.entries-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 20px;
+}
+
+.journal-form {
+  display: grid;
+  gap: 12px;
+}
+
+.journal-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.journal-form input,
+.journal-form textarea,
+.journal-form select {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.save-button {
+  width: max-content;
+  background: #2f80ed;
+  color: white;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.save-button:hover {
+  background: #1f6edd;
+}
+
+.entries-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.entry-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 14px;
+  background: #fff;
+}
+
+.entry-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.entry-head h3 {
+  margin: 0;
+}
+
+.entry-head span {
+  border-radius: 999px;
+  background: #f1f1f1;
+  padding: 4px 10px;
+  font-size: 0.9rem;
+}
+
+.entry-date {
+  margin: 6px 0 10px;
+  color: #666;
+  font-size: 0.88rem;
+}
+
+.empty-text {
+  color: #555;
+  font-style: italic;
+}
+

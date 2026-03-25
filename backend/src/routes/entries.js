@@ -5,21 +5,16 @@ import { authenticateToken } from '../middleware/auth.js'
 const router = express.Router()
 
 // Get all journal entries for a user, including linked mood info
-router.get('/', authenticateToken, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const userId = req.user.id
+    const userId = 1 // Temporary: no auth
 
     const entries = await dbAll(
       `
       SELECT
         je.*,
-        me.mood AS linked_mood,
-        me.intensity AS linked_mood_intensity,
-        me.created_at AS linked_mood_created_at
+        je.mood_text AS mood
       FROM journal_entries je
-      LEFT JOIN mood_entries me
-        ON je.mood_id = me.id
-        AND me.user_id = je.user_id
       WHERE je.user_id = ?
       ORDER BY je.created_at DESC
       `,
@@ -33,22 +28,17 @@ router.get('/', authenticateToken, async (req, res) => {
 })
 
 // Get a specific journal entry
-router.get('/:id', authenticateToken, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
-    const userId = req.user.id
+    const userId = 1 // Temporary: no auth
     const entryId = req.params.id
 
     const entry = await dbGet(
       `
       SELECT
         je.*,
-        me.mood AS linked_mood,
-        me.intensity AS linked_mood_intensity,
-        me.created_at AS linked_mood_created_at
+        je.mood_text AS mood
       FROM journal_entries je
-      LEFT JOIN mood_entries me
-        ON je.mood_id = me.id
-        AND me.user_id = je.user_id
       WHERE je.id = ? AND je.user_id = ?
       `,
       [entryId, userId]
@@ -65,33 +55,18 @@ router.get('/:id', authenticateToken, async (req, res) => {
 })
 
 // Create a new journal entry
-router.post('/', authenticateToken, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
-    const userId = req.user.id
-    const { title, content, mood_id } = req.body
+    const userId = 1 // Temporary: no auth
+    const { title, content, mood } = req.body
 
     if (!title?.trim() || !content?.trim()) {
       return res.status(400).json({ error: 'Title and content are required' })
     }
 
-    let validatedMoodId = null
-
-    if (mood_id) {
-      const moodEntry = await dbGet(
-        'SELECT id FROM mood_entries WHERE id = ? AND user_id = ?',
-        [mood_id, userId]
-      )
-
-      if (!moodEntry) {
-        return res.status(400).json({ error: 'Selected mood is invalid' })
-      }
-
-      validatedMoodId = mood_id
-    }
-
     const result = await dbRun(
-      'INSERT INTO journal_entries (user_id, title, content, mood_id) VALUES (?, ?, ?, ?)',
-      [userId, title.trim(), content.trim(), validatedMoodId]
+      'INSERT INTO journal_entries (user_id, title, content, mood_text) VALUES (?, ?, ?, ?)',
+      [userId, title.trim(), content.trim(), mood?.trim() || null]
     )
 
     const newEntry = await dbGet(
@@ -117,11 +92,11 @@ router.post('/', authenticateToken, async (req, res) => {
 })
 
 // Update a journal entry
-router.put('/:id', authenticateToken, async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
-    const userId = req.user.id
+    const userId = 1 // Temporary: no auth
     const entryId = req.params.id
-    const { title, content, mood_id } = req.body
+    const { title, content, mood } = req.body
 
     const entry = await dbGet(
       'SELECT * FROM journal_entries WHERE id = ? AND user_id = ?',
@@ -132,31 +107,16 @@ router.put('/:id', authenticateToken, async (req, res) => {
       return res.status(404).json({ error: 'Entry not found' })
     }
 
-    let validatedMoodId = null
-
-    if (mood_id) {
-      const moodEntry = await dbGet(
-        'SELECT id FROM mood_entries WHERE id = ? AND user_id = ?',
-        [mood_id, userId]
-      )
-
-      if (!moodEntry) {
-        return res.status(400).json({ error: 'Selected mood is invalid' })
-      }
-
-      validatedMoodId = mood_id
-    }
-
     await dbRun(
       `
       UPDATE journal_entries
-      SET title = ?, content = ?, mood_id = ?, updated_at = CURRENT_TIMESTAMP
+      SET title = ?, content = ?, mood_text = ?, updated_at = CURRENT_TIMESTAMP
       WHERE id = ?
       `,
       [
         title?.trim() || entry.title,
         content?.trim() || entry.content,
-        validatedMoodId,
+        mood?.trim() || entry.mood_text,
         entryId
       ]
     )
@@ -184,9 +144,9 @@ router.put('/:id', authenticateToken, async (req, res) => {
 })
 
 // Delete a journal entry
-router.delete('/:id', authenticateToken, async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
-    const userId = req.user.id
+    const userId = 1 // Temporary: no auth
     const entryId = req.params.id
 
     const entry = await dbGet(
