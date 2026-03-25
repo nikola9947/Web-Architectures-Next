@@ -2,26 +2,38 @@ import express from "express"
 import cors from "cors"
 import dotenv from "dotenv"
 
-dotenv.config()
-
-const app = express()
-app.use(cors())
-app.use(express.json())
-
-// Keine Auth-Route / keine user route mehr
-// import userRoutes from "./routes/users.js"
-// app.use("/api/users", userRoutes)
-
-// Mood / Journal / Skills bleiben
+import userRoutes from "./routes/users.js"
 import moodRoutes from "./routes/moods.js"
 import entryRoutes from "./routes/entries.js"
 import skillRoutes from "./routes/skills.js"
+import { initializeDatabase } from "./utils/database.js"
 
+
+dotenv.config()
+
+const PORT = process.env.PORT || 3000
+
+const app = express()
+
+app.use(cors())
+app.use(express.json())
+
+app.use("/api/users", userRoutes)
 app.use("/api/moods", moodRoutes)
 app.use("/api/entries", entryRoutes)
 app.use("/api/skills", skillRoutes)
 
-const PORT = process.env.PORT || 3000
-app.listen(PORT, () => {
-  console.log(`Mood Tracker API running on http://localhost:${PORT}`)
-})
+const startServer = async () => {
+  try {
+    await initializeDatabase()
+
+    app.listen(PORT, () => {
+      console.log(`Mood Tracker API running on http://localhost:${PORT}`)
+    })
+  } catch (error) {
+    console.error("Failed to start server:", error)
+    process.exit(1)
+  }
+}
+
+startServer()
