@@ -1,0 +1,47 @@
+:root {
+  --primary: #201E50;
+  --secondary: #525B76;
+  --accent: #A2C3A4;
+  --accent-light: #C4F1BE;
+
+  --bg-main: #626A82;
+  --bg-card: #ffffff;
+
+  --text-main: #201E50;
+  --text-secondary: #525B76;
+  --text-muted: #869D96;
+
+  --border: rgba(32, 30, 80, 0.08);
+
+  --shadow: 0 10px 25px rgba(32, 30, 80, 0.08);
+  --shadow-hover: 0 16px 35px rgba(32, 30, 80, 0.12);
+
+  --gradient-main: linear-gradient(135deg, #525B76, #201E50);
+}
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-main);
+  font-family: Inter, system-ui, sans-serif;
+  color: var(--text-main);
+}
+
+/* Inputs clean */
+input, textarea, select {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.75rem;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(82, 91, 118, 0.1);
+}

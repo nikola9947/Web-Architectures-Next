@@ -1,0 +1,91 @@
+.card {
+  background: #C4F1BE;
+  border-radius: 20px;
+  padding: 1.5rem;
+
+  border: 1px solid rgba(32, 30, 80, 0.08);
+  box-shadow: 0 10px 25px rgba(32, 30, 80, 0.1);
+
+  color: #201E50; /* wichtig für Lesbarkeit */
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(32, 30, 80, 0.15);
+}
+
+.auth-card h1 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 0.45rem;
+  color: var(--primary-deep);
+  font-weight: 900;
+}
+
+.auth-card h2 {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-weight: 800;
+  color: var(--primary-deep);
+}
+
+.form-group input {
+  width: 100%;
+  border-radius: 14px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.9rem;
+  background: var(--gradient-main);
+  color: white;
+  border-radius: 16px;
+  font-size: 1rem;
+  font-weight: 800;
+  box-shadow: var(--shadow-soft);
+  margin-top: 0.5rem;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.submit-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background: rgba(255, 240, 240, 0.95);
+  color: #a33;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  margin-bottom: 1rem;
+  border-left: 4px solid #d66;
+  font-weight: 600;
+}
+
+.auth-link {
+  text-align: center;
+  margin-top: 1.4rem;
+  color: var(--text-secondary);
+}
+
+.auth-link a {
+  color: var(--primary-deep);
+  font-weight: 800;
+}

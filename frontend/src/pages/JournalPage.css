@@ -1,0 +1,23 @@
+.entry-card {
+  background: #525B76;
+  border-radius: 18px;
+  padding: 1.2rem;
+  border: 1px solid var(--border);
+}
+
+.entry-title {
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.entry-date {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.entry-mood {
+  display: inline-block;
+  background: rgba(162, 195, 164, 0.2);
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+}
