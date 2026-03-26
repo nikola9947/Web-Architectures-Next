@@ -124,7 +124,9 @@
 }
 
 .compact-card {
-  padding: 1.35rem;
+  background: #C5D6C6;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(32, 30, 80, 0.1);
 }
 
 .section-heading {
@@ -150,56 +152,54 @@
   border-radius: 20px;
   padding: 1.15rem;
   border: 1px solid var(--border);
-  background: linear-gradient(135deg, rgba(162, 195, 164, 0.08), rgba(82, 91, 118, 0.06));
-}
-
-.latest-mood-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
+  background: #67797A;
+  color: white;
+  box-shadow: 0 6px 16px rgba(32, 30, 80, 0.15);
 }
 
 .latest-mood-name {
   margin: 0;
   font-size: 1.1rem;
   font-weight: 900;
-  color: var(--text-main);
+  color: white;
   text-transform: capitalize;
 }
 
 .latest-mood-intensity {
   margin: 0;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.85);
   font-weight: 600;
 }
 
 .latest-mood-intensity span {
-  color: var(--secondary);
+  color: #C5D6C6;
   font-weight: 900;
 }
 
 .latest-mood-time {
   margin: 0;
   font-size: 0.86rem;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .summary-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.9rem;
+  gap: 1.5rem; 
 }
 
 .summary-tile {
   border-radius: 18px;
-  padding: 1rem;
-  background: rgba(82, 91, 118, 0.04);
-  border: 1px solid var(--border);
+  padding : 1.25rem;
+  background: #67797A;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 6px 16px rgba(32, 30, 80, 0.15);
 }
 
 .summary-label {
   display: block;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.72);
   font-size: 0.78rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -209,7 +209,7 @@
 .summary-value {
   display: block;
   margin-top: 0.35rem;
-  color: var(--text-main);
+  color: white;
   font-size: 1.6rem;
   font-weight: 900;
 }
