@@ -2,18 +2,30 @@ import React, { useState, useEffect } from 'react'
 import { getEntries, createEntry, updateEntry, deleteEntry, getMoods } from '../services/api'
 import './JournalPage.css'
 
-const MOOD_EMOJIS = {
-  happy: '😄',
-  sad: '😢',
-  anxious: '😰',
-  angry: '😠',
-  calm: '😌',
-  stressed: '😩',
-  excited: '🤩',
-  confused: '😕',
-  lonely: '😔',
-  sluggish: '😑'
-}
+import journalIcon from '../assets/journal.svg'
+import happyIcon from '../assets/happy.svg'
+import sadIcon from '../assets/sad.svg'
+import anxiousIcon from '../assets/anxious.svg'
+import angryIcon from '../assets/angry.svg'
+import calmIcon from '../assets/calm.svg'
+import stressedIcon from '../assets/stressed.svg'
+import excitedIcon from '../assets/excited.svg'
+import confusedIcon from '../assets/confused.svg'
+import lonelyIcon from '../assets/lonely.svg'
+import sluggishIcon from '../assets/sluggish.svg'
+
+const MOODS = [
+  'happy',
+  'sad',
+  'anxious',
+  'angry',
+  'calm',
+  'stressed',
+  'excited',
+  'confused',
+  'lonely',
+  'sluggish'
+]
 
 const MOOD_LABELS = {
   happy: 'Happy',
@@ -28,15 +40,30 @@ const MOOD_LABELS = {
   sluggish: 'Sluggish'
 }
 
+const MOOD_ICONS = {
+  happy: happyIcon,
+  sad: sadIcon,
+  anxious: anxiousIcon,
+  angry: angryIcon,
+  calm: calmIcon,
+  stressed: stressedIcon,
+  excited: excitedIcon,
+  confused: confusedIcon,
+  lonely: lonelyIcon,
+  sluggish: sluggishIcon
+}
+
 export default function JournalPage() {
   const [entries, setEntries] = useState([])
+  const [moods, setMoods] = useState([])
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState(null)
   const [expandedEntryId, setExpandedEntryId] = useState(null)
   const [formData, setFormData] = useState({
     title: '',
     content: '',
-    mood: '' // Changed from mood_id to mood
+    mood_id: '',
+    customMood: ''
   })
   const [loading, setLoading] = useState(true)
 
@@ -46,10 +73,15 @@ export default function JournalPage() {
 
   const loadData = async () => {
     try {
-      const entriesResponse = await getEntries()
+      const [entriesResponse, moodsResponse] = await Promise.all([
+        getEntries(),
+        getMoods()
+      ])
+
       setEntries(entriesResponse.data)
+      setMoods(moodsResponse.data)
     } catch (error) {
-      console.error('Failed to load entries:', error)
+      console.error('Failed to load data:', error)
     } finally {
       setLoading(false)
     }
@@ -59,7 +91,8 @@ export default function JournalPage() {
     setFormData({
       title: '',
       content: '',
-      mood: ''
+      mood_id: '',
+      customMood: ''
     })
     setEditingId(null)
     setShowForm(false)
@@ -73,19 +106,24 @@ export default function JournalPage() {
       return
     }
 
+    const selectedMoodValue =
+      formData.customMood.trim() !== ''
+        ? formData.customMood.trim().toLowerCase()
+        : (formData.mood_id || null)
+
     try {
       if (editingId) {
         await updateEntry(
           editingId,
           formData.title.trim(),
           formData.content.trim(),
-          formData.mood || null
+          selectedMoodValue
         )
       } else {
         await createEntry(
           formData.title.trim(),
           formData.content.trim(),
-          formData.mood || null
+          selectedMoodValue
         )
       }
 
@@ -113,11 +151,15 @@ export default function JournalPage() {
   }
 
   const handleEdit = (entry) => {
+    const knownMood = entry.mood && MOODS.includes(entry.mood)
+
     setFormData({
       title: entry.title,
       content: entry.content,
-      mood: entry.mood || ''
+      mood_id: knownMood ? entry.mood : '',
+      customMood: knownMood ? '' : (entry.mood || '')
     })
+
     setEditingId(entry.id)
     setShowForm(true)
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -135,8 +177,22 @@ export default function JournalPage() {
     })}`
   }
 
+  const getMoodIcon = (mood) => {
+    if (!mood) return null
+    return MOOD_ICONS[mood.toLowerCase()] || null
+  }
+
+  const getMoodLabel = (mood) => {
+    if (!mood) return ''
+    return MOOD_LABELS[mood.toLowerCase()] || mood
+  }
+
   if (loading) {
-    return <div className="journal-page"><p>Loading...</p></div>
+    return (
+      <div className="journal-page">
+        <p>Loading...</p>
+      </div>
+    )
   }
 
   return (
@@ -144,7 +200,12 @@ export default function JournalPage() {
       <div className="journal-hero">
         <div>
           <p className="journal-kicker">Your personal space</p>
-          <h1>📔 Journal</h1>
+
+          <h1 className="journal-title">
+            <img src={journalIcon} alt="Journal" className="journal-icon" />
+            <span>Journal</span>
+          </h1>
+
           <p className="journal-subtitle">
             Write down your thoughts and connect them with how you felt in that moment.
           </p>
@@ -158,12 +219,17 @@ export default function JournalPage() {
             } else {
               setShowForm(true)
               if (!editingId) {
-                setFormData({ title: '', content: '', mood: '' })
+                setFormData({
+                  title: '',
+                  content: '',
+                  mood_id: '',
+                  customMood: ''
+                })
               }
             }
           }}
         >
-          {showForm ? 'Close form' : '✍️ New Entry'}
+          {showForm ? 'Close form' : 'New Entry'}
         </button>
       </div>
 
@@ -172,7 +238,7 @@ export default function JournalPage() {
           <div className="form-card-header">
             <h2>{editingId ? 'Edit entry' : 'Create a new entry'}</h2>
             <p>
-              Add a title, write your thoughts, and optionally connect this entry to a saved mood.
+              Add a title, choose a mood if you want, and write your thoughts.
             </p>
           </div>
 
@@ -191,13 +257,47 @@ export default function JournalPage() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="mood">Mood (optional)</label>
+              <label>Mood (optional)</label>
+
+              <div className="journal-mood-grid">
+                {MOODS.map((mood) => (
+                  <button
+                    key={mood}
+                    type="button"
+                    className={`journal-mood-button ${formData.mood_id === mood ? 'selected' : ''}`}
+                    onClick={() =>
+                      setFormData({
+                        ...formData,
+                        mood_id: formData.mood_id === mood ? '' : mood,
+                        customMood: ''
+                      })
+                    }
+                  >
+                    <img
+                      src={MOOD_ICONS[mood]}
+                      alt={MOOD_LABELS[mood]}
+                      className="journal-mood-icon"
+                    />
+                    <span className="journal-mood-name">{MOOD_LABELS[mood]}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="customMood">Or type a custom mood (optional)</label>
               <input
-                id="mood"
+                id="customMood"
                 type="text"
-                value={formData.mood}
-                onChange={(e) => setFormData({ ...formData, mood: e.target.value })}
-                placeholder="How are you feeling? (e.g. happy, excited, anxious...)"
+                value={formData.customMood}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    customMood: e.target.value,
+                    mood_id: ''
+                  })
+                }
+                placeholder="Example: overwhelmed"
                 maxLength={50}
               />
             </div>
@@ -237,9 +337,11 @@ export default function JournalPage() {
         <div className="entries-list">
           {entries.length === 0 ? (
             <div className="empty-state">
-              <div className="empty-state-icon">📝</div>
+              <div className="empty-state-icon">
+                <img src={journalIcon} alt="Journal" className="empty-icon-img" />
+              </div>
               <h3>No journal entries yet</h3>
-              <p>Start with your first entry and connect it to a mood if you want.</p>
+              <p>Start with your first entry whenever you want — no mood entry required.</p>
             </div>
           ) : (
             entries.map((entry) => {
@@ -248,6 +350,9 @@ export default function JournalPage() {
                 entry.content.length > 220
                   ? `${entry.content.substring(0, 220)}...`
                   : entry.content
+
+              const moodIcon = getMoodIcon(entry.mood)
+              const moodLabel = getMoodLabel(entry.mood)
 
               return (
                 <article key={entry.id} className="entry-card">
@@ -264,7 +369,7 @@ export default function JournalPage() {
                         onClick={() => handleEdit(entry)}
                         title="Edit entry"
                       >
-                        ✏️
+                        Edit
                       </button>
                       <button
                         type="button"
@@ -272,14 +377,21 @@ export default function JournalPage() {
                         onClick={() => handleDelete(entry.id)}
                         title="Delete entry"
                       >
-                        🗑️
+                        Delete
                       </button>
                     </div>
                   </div>
 
                   {entry.mood && (
                     <div className="entry-mood-pill">
-                      <span className="entry-mood-text">{entry.mood}</span>
+                      {moodIcon && (
+                        <img
+                          src={moodIcon}
+                          alt={entry.mood}
+                          className="entry-mood-icon"
+                        />
+                      )}
+                      <span className="entry-mood-text">{moodLabel}</span>
                     </div>
                   )}
 

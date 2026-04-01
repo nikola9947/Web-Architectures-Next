@@ -22,7 +22,7 @@
   padding: 2rem;
   border-radius: 28px;
   background:
-    radial-gradient(circle at top left, rgba(162, 195, 164, 0.22), transparent 32%),
+    radial-gradient(circle at top left, oklch(78.427% 0.05609 146.714 / 0.22), transparent 32%),
     linear-gradient(135deg, rgba(82, 91, 118, 0.06), rgba(32, 30, 80, 0.08)),
     #ffffff;
   border: 1px solid var(--border);
@@ -439,24 +439,70 @@
   }
 }
 
-.mood-icon {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-}
+/* =========================
+   BASE ICON STYLE
+========================= */
 
-.mood-icon-large {
-  width: 52px;
-  height: 52px;
-  object-fit: contain;
-  display: block;
-}
-
+.mood-icon,
+.mood-icon-large,
 .mood-icon-small {
-  width: 36px;
-  height: 36px;
   object-fit: contain;
   display: block;
+  transition: 0.2s ease;
+}
+
+/* Größen */
+.mood-icon { width: 40px; height: 40px; }
+.mood-icon-large { width: 52px; height: 52px; }
+.mood-icon-small { width: 36px; height: 36px; }
+
+/* =========================
+   UNSELECTED STATE
+========================= */
+
+.mood-button,
+.journal-mood-button {
+  background: #2F3A55; /* dunkles blau */
+  border: 2px solid #C5D6C6;
+  color: #C5D6C6;
+  transition: 0.2s;
+}
+
+/* ICON = hellgrün */
+.mood-button .mood-icon,
+.journal-mood-button .journal-mood-icon {
+  filter: brightness(0) saturate(100%)
+          invert(88%) sepia(10%) saturate(238%)
+          hue-rotate(42deg) brightness(95%) contrast(93%);
+}
+
+/* =========================
+   SELECTED STATE
+========================= */
+
+.mood-button.selected,
+.journal-mood-button.selected {
+  background: #C5D6C6; /* hellgrün */
+  color: #283047;
+  border: 2px solid #C5D6C6;
+}
+
+/* ICON = dunkelblau */
+.mood-button.selected .mood-icon,
+.journal-mood-button.selected .journal-mood-icon {
+  filter: brightness(0) saturate(100%)
+          invert(18%) sepia(28%) saturate(948%)
+          hue-rotate(192deg) brightness(91%) contrast(92%);
+}
+
+/* =========================
+   HOVER (optional aber nice)
+========================= */
+
+.mood-button:hover,
+.journal-mood-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(32, 30, 80, 0.2);
 }
 
 .empty-icon-img {

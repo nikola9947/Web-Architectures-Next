@@ -1,23 +1,470 @@
-.entry-card {
-  background: #525B76;
-  border-radius: 18px;
-  padding: 1.2rem;
-  border: 1px solid var(--border);
+.journal-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
 }
 
-.entry-title {
-  font-weight: bold;
-  color: var(--primary);
+/* HERO */
+.journal-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1rem;
+  padding: 2rem;
+  border-radius: 28px;
+  background: #c5d6c6;
+  border: 1px solid rgba(40, 48, 71, 0.12);
+  box-shadow: 0 10px 25px rgba(32, 30, 80, 0.1);
+}
+
+.journal-kicker {
+  margin: 0 0 0.45rem 0;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(40, 48, 71, 0.55);
+}
+
+.journal-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 2.1rem;
+  line-height: 1.1;
+  color: #283047;
+  font-weight: 900;
+}
+
+.journal-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.journal-subtitle {
+  margin-top: 0.85rem;
+  max-width: 650px;
+  color: rgba(40, 48, 71, 0.78);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.new-entry-btn {
+  align-self: center;
+  background: #626a82;
+  color: #c5d6c6;
+  border: none;
+  border-radius: 16px;
+  padding: 0.95rem 1.35rem;
+  font-weight: 800;
+  box-shadow: 0 8px 18px rgba(32, 30, 80, 0.16);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.new-entry-btn:hover {
+  background: #525b76;
+  transform: translateY(-1px);
+}
+
+/* FORM CARD */
+.entry-form-card {
+  background: #c5d6c6;
+  padding: 1.8rem;
+  border-radius: 24px;
+  border: 1px solid rgba(40, 48, 71, 0.12);
+  box-shadow: 0 10px 25px rgba(32, 30, 80, 0.1);
+}
+
+.form-card-header {
+  margin-bottom: 1.4rem;
+}
+
+.form-card-header h2 {
+  margin: 0 0 0.45rem 0;
+  color: #283047;
+  font-size: 1.45rem;
+  font-weight: 900;
+}
+
+.form-card-header p {
+  margin: 0;
+  color: rgba(40, 48, 71, 0.74);
+  line-height: 1.6;
+}
+
+.form-group {
+  margin-bottom: 1.1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.55rem;
+  font-weight: 800;
+  color: #283047;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background: #c5d6c6;
+  border: 1px solid rgba(40, 48, 71, 0.14);
+  border-radius: 14px;
+  padding: 0.95rem 1rem;
+  color: #283047;
+  font-family: inherit;
+  font-size: 0.96rem;
+  transition: all 0.2s ease;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(40, 48, 71, 0.48);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #283047;
+  box-shadow: 0 0 0 3px rgba(40, 48, 71, 0.12);
+}
+
+/* MOOD GRID */
+.journal-mood-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 0.8rem;
+}
+
+.journal-mood-button {
+  background: #c5d6c6;
+  border: 1px solid rgba(40, 48, 71, 0.14);
+  border-radius: 14px;
+  padding: 0.85rem 0.7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  transition: 0.2s;
+  color: #283047;
+}
+
+.journal-mood-button:hover {
+  background: rgba(98, 106, 130, 0.08);
+}
+
+.journal-mood-button.selected {
+  background: #67797a;
+  color: white;
+  border-color: transparent;
+}
+
+.journal-mood-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.journal-mood-name {
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+/* BUTTONS */
+.form-actions {
+  display: flex;
+  gap: 0.85rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.save-btn,
+.cancel-btn {
+  border: none;
+  border-radius: 14px;
+  padding: 0.85rem 1.2rem;
+  font-weight: 800;
+  transition: all 0.2s ease;
+}
+
+.save-btn {
+  background: #626a82;
+  color: #c5d6c6;
+  box-shadow: 0 8px 18px rgba(32, 30, 80, 0.16);
+}
+
+.save-btn:hover {
+  background: #525b76;
+  transform: translateY(-1px);
+}
+
+.cancel-btn {
+  background: #67797a;
+  color: #c5d6c6;
+}
+
+.cancel-btn:hover {
+  background: #5c6c6d;
+}
+
+/* ENTRIES SECTION */
+.entries-section {
+  background: #c5d6c6;
+  border-radius: 24px;
+  padding: 1.8rem;
+  border: 1px solid rgba(40, 48, 71, 0.12);
+  box-shadow: 0 10px 25px rgba(32, 30, 80, 0.1);
+}
+
+.entries-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.entries-section-header h2 {
+  margin: 0;
+  color: #283047;
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.entries-count {
+  background: #67797a;
+  color: #c5d6c6;
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+/* EMPTY */
+.empty-state {
+  text-align: center;
+  padding: 2rem 1rem;
+  border-radius: 20px;
+  background: rgba(103, 121, 122, 0.14);
+  border: 1px dashed rgba(40, 48, 71, 0.16);
+}
+
+.empty-state-icon {
+  margin-bottom: 0.75rem;
+}
+
+.empty-icon-img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.empty-state h3 {
+  margin: 0 0 0.4rem 0;
+  color: #283047;
+  font-weight: 900;
+}
+
+.empty-state p {
+  margin: 0;
+  color: rgba(40, 48, 71, 0.72);
+  line-height: 1.6;
+}
+
+/* ENTRIES LIST */
+.entries-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ENTRY CARD */
+.entry-card {
+  background: #67797a;
+  color: white;
+  border-radius: 28px;
+  padding: 1.35rem 1.4rem;
+  box-shadow: 0 10px 24px rgba(32, 30, 80, 0.16);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.entry-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(32, 30, 80, 0.2);
+}
+
+/* ENTRY TOP */
+.entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.entry-header-main {
+  min-width: 0;
+}
+
+.entry-header-main h3 {
+  margin: 0 0 0.35rem 0;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #f2f5ee;
+  line-height: 1.1;
+  word-break: break-word;
 }
 
 .entry-date {
-  color: var(--text-muted);
-  font-size: 0.85rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.88rem;
+  font-weight: 600;
 }
 
-.entry-mood {
-  display: inline-block;
-  background: rgba(162, 195, 164, 0.2);
-  padding: 0.3rem 0.7rem;
+/* ACTIONS */
+.entry-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+.icon-btn {
+  min-width: 86px;
+  height: 42px;
+  padding: 0 1rem;
+  border: none;
   border-radius: 999px;
+  background: #626a82;
+  color: #c5d6c6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: 0 6px 14px rgba(32, 30, 80, 0.18);
+  transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: #525b76;
+  transform: translateY(-1px);
+}
+
+.edit-btn {
+  background: #626a82;
+}
+
+.delete-btn {
+  background: #5b667d;
+}
+
+/* MOOD PILL */
+.entry-mood-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: #c5d6c6;
+  color: #283047;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.entry-mood-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.entry-mood-text {
+  text-transform: capitalize;
+}
+
+/* CONTENT */
+.entry-content {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.7;
+  font-size: 1rem;
+  white-space: pre-wrap;
+}
+
+/* READ MORE */
+.read-more-btn {
+  margin-top: 1rem;
+  padding: 0;
+  background: transparent;
+  color: #c5d6c6;
+  font-weight: 800;
+  border: none;
+}
+
+.read-more-btn:hover {
+  color: white;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .journal-hero,
+  .entries-section-header,
+  .entry-header,
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .journal-hero {
+    padding: 1.4rem;
+  }
+
+  .journal-title {
+    font-size: 1.8rem;
+  }
+
+  .entry-form-card,
+  .entries-section {
+    padding: 1.25rem;
+  }
+
+  .new-entry-btn,
+  .save-btn,
+  .cancel-btn {
+    width: 100%;
+  }
+
+  .entry-actions {
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  .icon-btn {
+    min-width: 96px;
+  }
+
+  .entry-header-main h3 {
+    font-size: 1.5rem;
+  }
+}
+
+.entry-mood-icon,
+.mood-icon,
+.mood-icon-small,
+.mood-icon-large {
+  filter: brightness(0) saturate(100%)
+          invert(15%) sepia(10%) saturate(800%)
+          hue-rotate(180deg) brightness(60%);
 }

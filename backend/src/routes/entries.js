@@ -1,10 +1,23 @@
 import express from 'express'
 import { dbRun, dbGet, dbAll } from '../utils/database.js'
-import { authenticateToken } from '../middleware/auth.js'
 
 const router = express.Router()
 
-// Get all journal entries for a user, including linked mood info
+// helper: normalize mood value from frontend
+function resolveMoodValue(body) {
+  // supports:
+  // - mood
+  // - customMood
+  // - mood_id (if you temporarily use mood names there in the frontend)
+  const rawMood =
+    body?.customMood?.trim() ||
+    body?.mood?.trim() ||
+    (typeof body?.mood_id === 'string' ? body.mood_id.trim() : '')
+
+  return rawMood || null
+}
+
+// Get all journal entries for a user
 router.get('/', async (req, res) => {
   try {
     const userId = 1 // Temporary: no auth
@@ -12,8 +25,13 @@ router.get('/', async (req, res) => {
     const entries = await dbAll(
       `
       SELECT
-        je.*,
-        je.mood_text AS mood
+        je.id,
+        je.user_id,
+        je.title,
+        je.content,
+        je.mood_text AS mood,
+        je.created_at,
+        je.updated_at
       FROM journal_entries je
       WHERE je.user_id = ?
       ORDER BY je.created_at DESC
@@ -23,6 +41,7 @@ router.get('/', async (req, res) => {
 
     res.json(entries)
   } catch (error) {
+    console.error('GET /entries failed:', error)
     res.status(500).json({ error: error.message })
   }
 })
@@ -36,8 +55,13 @@ router.get('/:id', async (req, res) => {
     const entry = await dbGet(
       `
       SELECT
-        je.*,
-        je.mood_text AS mood
+        je.id,
+        je.user_id,
+        je.title,
+        je.content,
+        je.mood_text AS mood,
+        je.created_at,
+        je.updated_at
       FROM journal_entries je
       WHERE je.id = ? AND je.user_id = ?
       `,
@@ -50,6 +74,7 @@ router.get('/:id', async (req, res) => {
 
     res.json(entry)
   } catch (error) {
+    console.error('GET /entries/:id failed:', error)
     res.status(500).json({ error: error.message })
   }
 })
@@ -58,28 +83,32 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const userId = 1 // Temporary: no auth
-    const { title, content, mood } = req.body
+    const { title, content } = req.body
+    const mood = resolveMoodValue(req.body)
 
     if (!title?.trim() || !content?.trim()) {
       return res.status(400).json({ error: 'Title and content are required' })
     }
 
     const result = await dbRun(
-      'INSERT INTO journal_entries (user_id, title, content, mood_text) VALUES (?, ?, ?, ?)',
-      [userId, title.trim(), content.trim(), mood?.trim() || null]
+      `
+      INSERT INTO journal_entries (user_id, title, content, mood_text)
+      VALUES (?, ?, ?, ?)
+      `,
+      [userId, title.trim(), content.trim(), mood]
     )
 
     const newEntry = await dbGet(
       `
       SELECT
-        je.*,
-        me.mood AS linked_mood,
-        me.intensity AS linked_mood_intensity,
-        me.created_at AS linked_mood_created_at
+        je.id,
+        je.user_id,
+        je.title,
+        je.content,
+        je.mood_text AS mood,
+        je.created_at,
+        je.updated_at
       FROM journal_entries je
-      LEFT JOIN mood_entries me
-        ON je.mood_id = me.id
-        AND me.user_id = je.user_id
       WHERE je.id = ?
       `,
       [result.id]
@@ -87,6 +116,7 @@ router.post('/', async (req, res) => {
 
     res.status(201).json(newEntry)
   } catch (error) {
+    console.error('POST /entries failed:', error)
     res.status(500).json({ error: error.message })
   }
 })
@@ -96,7 +126,8 @@ router.put('/:id', async (req, res) => {
   try {
     const userId = 1 // Temporary: no auth
     const entryId = req.params.id
-    const { title, content, mood } = req.body
+    const { title, content } = req.body
+    const mood = resolveMoodValue(req.body)
 
     const entry = await dbGet(
       'SELECT * FROM journal_entries WHERE id = ? AND user_id = ?',
@@ -110,28 +141,33 @@ router.put('/:id', async (req, res) => {
     await dbRun(
       `
       UPDATE journal_entries
-      SET title = ?, content = ?, mood_text = ?, updated_at = CURRENT_TIMESTAMP
-      WHERE id = ?
+      SET
+        title = ?,
+        content = ?,
+        mood_text = ?,
+        updated_at = CURRENT_TIMESTAMP
+      WHERE id = ? AND user_id = ?
       `,
       [
         title?.trim() || entry.title,
         content?.trim() || entry.content,
-        mood?.trim() || entry.mood_text,
-        entryId
+        mood !== null ? mood : entry.mood_text,
+        entryId,
+        userId
       ]
     )
 
     const updated = await dbGet(
       `
       SELECT
-        je.*,
-        me.mood AS linked_mood,
-        me.intensity AS linked_mood_intensity,
-        me.created_at AS linked_mood_created_at
+        je.id,
+        je.user_id,
+        je.title,
+        je.content,
+        je.mood_text AS mood,
+        je.created_at,
+        je.updated_at
       FROM journal_entries je
-      LEFT JOIN mood_entries me
-        ON je.mood_id = me.id
-        AND me.user_id = je.user_id
       WHERE je.id = ?
       `,
       [entryId]
@@ -139,6 +175,7 @@ router.put('/:id', async (req, res) => {
 
     res.json(updated)
   } catch (error) {
+    console.error('PUT /entries/:id failed:', error)
     res.status(500).json({ error: error.message })
   }
 })
@@ -158,9 +195,14 @@ router.delete('/:id', async (req, res) => {
       return res.status(404).json({ error: 'Entry not found' })
     }
 
-    await dbRun('DELETE FROM journal_entries WHERE id = ?', [entryId])
+    await dbRun(
+      'DELETE FROM journal_entries WHERE id = ? AND user_id = ?',
+      [entryId, userId]
+    )
+
     res.json({ message: 'Entry deleted' })
   } catch (error) {
+    console.error('DELETE /entries/:id failed:', error)
     res.status(500).json({ error: error.message })
   }
 })

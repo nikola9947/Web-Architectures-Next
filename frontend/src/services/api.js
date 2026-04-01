@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_BASE_URL = 'http://localhost:3006/api'
+const API_BASE_URL = 'http://localhost:3001/api'
 
 export const getAuthHeaders = () => {
   const token = localStorage.getItem('token')
