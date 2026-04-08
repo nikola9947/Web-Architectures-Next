@@ -153,7 +153,7 @@
 
 .skill-header h3 {
   margin: 0;
-  color: white;
+  color: #1f2638;
   font-size: 1.2rem;
   font-weight: 900;
 }
@@ -173,7 +173,7 @@
 /* CONTENT */
 .skill-description {
   margin: 0 0 1rem 0;
-  color: rgba(255, 255, 255, 0.86);
+  color: #201E50;
   line-height: 1.6;
 }
 
@@ -215,7 +215,7 @@
 
 .skill-moods p {
   margin: 0 0 0.55rem 0;
-  color: rgba(255, 255, 255, 0.92);
+  color: #201E50;
 }
 
 .mood-tags {
@@ -235,7 +235,7 @@
 
 /* INSTRUCTIONS */
 .skill-instructions {
-  background: rgba(197, 214, 198, 0.16);
+  background: #C5D6C6;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 18px;
   padding: 1rem;
@@ -245,12 +245,12 @@
 .skill-instructions strong {
   display: block;
   margin-bottom: 0.45rem;
-  color: #C5D6C6;
+  color: #1f2638;
 }
 
 .skill-instructions p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.88);
+  color: #1f2638;
   line-height: 1.6;
 }
 
@@ -354,4 +354,40 @@
   filter: brightness(0) saturate(100%)
           invert(18%) sepia(28%) saturate(948%)
           hue-rotate(192deg) brightness(91%) contrast(92%);
+}
+
+.skill-example {
+  margin-top: 0.8rem;
+  color: #283047;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.spotify-link {
+  display: inline-flex;
+  margin-top: 0.8rem;
+  background: #C5D6C6;
+  color: #283047;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.spotify-link:hover {
+  background: #b7c8b8;
+}
+
+.skill-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.skill-actions a,
+.skill-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }

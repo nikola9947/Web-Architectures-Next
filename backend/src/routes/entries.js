@@ -3,12 +3,7 @@ import { dbRun, dbGet, dbAll } from '../utils/database.js'
 
 const router = express.Router()
 
-// helper: normalize mood value from frontend
 function resolveMoodValue(body) {
-  // supports:
-  // - mood
-  // - customMood
-  // - mood_id (if you temporarily use mood names there in the frontend)
   const rawMood =
     body?.customMood?.trim() ||
     body?.mood?.trim() ||

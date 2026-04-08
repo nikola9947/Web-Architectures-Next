@@ -12,9 +12,6 @@ import skillsIcon from '../assets/skills.svg'
 import leaveIcon from '../assets/leave.svg'
 import { SKILL_CATEGORY_STYLES, SKILL_ICONS } from '../data/skillStyles'
 
-/* ===============================
-   CATEGORY BADGE
-================================= */
 function SkillCategoryBadge({ category }) {
   const config = SKILL_CATEGORY_STYLES[category]
 
@@ -42,9 +39,6 @@ function SkillCategoryBadge({ category }) {
   )
 }
 
-/* ===============================
-   MAIN COMPONENT
-================================= */
 export default function SkillsPage() {
   const [allSkills, setAllSkills] = useState([])
   const [userSkills, setUserSkills] = useState([])
@@ -75,7 +69,7 @@ export default function SkillsPage() {
   const handleAddSkill = async (skillId) => {
     try {
       await addUserSkill(skillId)
-      loadSkills()
+      await loadSkills()
     } catch (error) {
       console.error('Add skill failed:', error)
     }
@@ -84,7 +78,7 @@ export default function SkillsPage() {
   const handleRemoveSkill = async (skillId) => {
     try {
       await removeUserSkill(skillId)
-      loadSkills()
+      await loadSkills()
     } catch (error) {
       console.error('Remove skill failed:', error)
     }
@@ -93,15 +87,12 @@ export default function SkillsPage() {
   const handlePractice = async (skillId) => {
     try {
       await markSkillAsPracticed(skillId)
-      loadSkills()
+      await loadSkills()
     } catch (error) {
       console.error('Practice failed:', error)
     }
   }
 
-  /* ===============================
-     FILTER LOGIC
-  ================================= */
   const getAvailableSkills = () => {
     const userSkillIds = userSkills.map((s) => s.id)
     return allSkills.filter((s) => !userSkillIds.includes(s.id))
@@ -114,9 +105,6 @@ export default function SkillsPage() {
   const filteredUserSkills = userSkills.filter(matchesFilter)
   const filteredAvailableSkills = getAvailableSkills().filter(matchesFilter)
 
-  /* ===============================
-     LOADING
-  ================================= */
   if (loading) {
     return (
       <div className="skills-page">
@@ -125,13 +113,8 @@ export default function SkillsPage() {
     )
   }
 
-  /* ===============================
-     UI
-  ================================= */
   return (
     <div className="skills-page">
-      
-      {/* HEADER */}
       <div className="skills-header">
         <h1 className="skills-title">
           <img src={skillsIcon} alt="Skills" className="skills-title-icon" />
@@ -140,7 +123,6 @@ export default function SkillsPage() {
         <p>Learn and practice skills to manage your emotions</p>
       </div>
 
-      {/* SEARCH */}
       <div className="skills-search">
         <input
           type="text"
@@ -150,7 +132,6 @@ export default function SkillsPage() {
         />
       </div>
 
-      {/* TABS */}
       <div className="skills-tabs">
         <button
           className={`tab ${activeTab === 'my-skills' ? 'active' : ''}`}
@@ -167,9 +148,6 @@ export default function SkillsPage() {
         </button>
       </div>
 
-      {/* ===============================
-          MY SKILLS
-      ================================= */}
       {activeTab === 'my-skills' && (
         <div className="skills-grid">
           {filteredUserSkills.length === 0 ? (
@@ -180,7 +158,6 @@ export default function SkillsPage() {
           ) : (
             filteredUserSkills.map((skill) => (
               <div key={skill.id} className="skill-card my-skill">
-                
                 <div className="skill-header">
                   <h3>{skill.name}</h3>
                   <SkillCategoryBadge category={skill.category} />
@@ -209,6 +186,23 @@ export default function SkillsPage() {
                   <p>{skill.instructions}</p>
                 </div>
 
+                {skill.example_title && (
+                  <p className="skill-example">
+                    <strong>Example:</strong> {skill.example_title}
+                  </p>
+                )}
+
+                {skill.spotify_url && (
+                  <a
+                    href={skill.spotify_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="spotify-link"
+                  >
+                    Open in Spotify
+                  </a>
+                )}
+
                 <div className="skill-actions">
                   <button
                     className="practice-btn"
@@ -224,16 +218,12 @@ export default function SkillsPage() {
                     Remove
                   </button>
                 </div>
-
               </div>
             ))
           )}
         </div>
       )}
 
-      {/* ===============================
-          DISCOVER
-      ================================= */}
       {activeTab === 'discover' && (
         <div className="skills-grid">
           {filteredAvailableSkills.length === 0 ? (
@@ -244,7 +234,6 @@ export default function SkillsPage() {
           ) : (
             filteredAvailableSkills.map((skill) => (
               <div key={skill.id} className="skill-card">
-
                 <div className="skill-header">
                   <h3>{skill.name}</h3>
                   <SkillCategoryBadge category={skill.category} />
@@ -268,13 +257,31 @@ export default function SkillsPage() {
                   <p>{skill.instructions}</p>
                 </div>
 
+                {skill.example_title && (
+                  <p className="skill-example">
+                    <strong>Example:</strong> {skill.example_title}
+                  </p>
+                )}
+
+                <div className="skill-actions">
+                {skill.spotify_url && (
+                  <a
+                    href={skill.spotify_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="spotify-link"
+                  >
+                    Open in Spotify
+                  </a>
+                )}
+
                 <button
                   className="add-btn"
                   onClick={() => handleAddSkill(skill.id)}
                 >
                   Add to My Skills
                 </button>
-
+              </div>
               </div>
             ))
           )}

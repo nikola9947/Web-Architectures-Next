@@ -29,9 +29,9 @@ router.get('/for-mood/:mood', async (req, res) => {
 });
 
 // Get user's tracked skills
-router.get('/my-skills', authenticateToken, async (req, res) => {
+router.get('/my-skills', async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = 1
     const userSkills = await dbAll(`
       SELECT s.*, us.practiced_count, us.last_practiced
       FROM skills s
@@ -46,95 +46,70 @@ router.get('/my-skills', authenticateToken, async (req, res) => {
 });
 
 // Add skill to user's list
-router.post('/my-skills/:skillId', authenticateToken, async (req, res) => {
+router.post('/my-skills/:skillId', async (req, res) => {
   try {
-    const userId = req.user.id;
-    const skillId = req.params.skillId;
+    const userId = 1
+    const skillId = req.params.skillId
 
-    const skill = await dbGet('SELECT * FROM skills WHERE id = ?', [skillId]);
+    const skill = await dbGet('SELECT * FROM skills WHERE id = ?', [skillId])
     if (!skill) {
-      return res.status(404).json({ error: 'Skill not found' });
+      return res.status(404).json({ error: 'Skill not found' })
     }
 
     const existing = await dbGet(
       'SELECT * FROM user_skills WHERE user_id = ? AND skill_id = ?',
       [userId, skillId]
-    );
+    )
 
     if (existing) {
-      return res.status(400).json({ error: 'Skill already added' });
+      return res.status(400).json({ error: 'Skill already added' })
     }
 
-    const result = await dbRun(
+    await dbRun(
       'INSERT INTO user_skills (user_id, skill_id) VALUES (?, ?)',
       [userId, skillId]
-    );
+    )
 
-    const userSkill = await dbGet(
-      'SELECT s.*, us.practiced_count, us.last_practiced FROM skills s JOIN user_skills us ON s.id = us.skill_id WHERE us.id = ?',
-      [result.id]
-    );
-
-    res.status(201).json(userSkill);
+    res.status(201).json({ message: 'Skill added' })
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message })
   }
 });
 
 // Remove skill from user's list
-router.delete('/my-skills/:skillId', authenticateToken, async (req, res) => {
+router.delete('/my-skills/:skillId', async (req, res) => {
   try {
-    const userId = req.user.id;
-    const skillId = req.params.skillId;
-
-    const userSkill = await dbGet(
-      'SELECT * FROM user_skills WHERE user_id = ? AND skill_id = ?',
-      [userId, skillId]
-    );
-
-    if (!userSkill) {
-      return res.status(404).json({ error: 'Skill not found in your list' });
-    }
+    const userId = 1
+    const skillId = req.params.skillId
 
     await dbRun(
       'DELETE FROM user_skills WHERE user_id = ? AND skill_id = ?',
       [userId, skillId]
-    );
+    )
 
-    res.json({ message: 'Skill removed' });
+    res.json({ message: 'Skill removed' })
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message })
   }
 });
 
 // Mark skill as practiced
-router.post('/my-skills/:skillId/practice', authenticateToken, async (req, res) => {
+router.post('/my-skills/:skillId/practice', async (req, res) => {
   try {
-    const userId = req.user.id;
-    const skillId = req.params.skillId;
-
-    const userSkill = await dbGet(
-      'SELECT * FROM user_skills WHERE user_id = ? AND skill_id = ?',
-      [userId, skillId]
-    );
-
-    if (!userSkill) {
-      return res.status(404).json({ error: 'Skill not found' });
-    }
+    const userId = 1
+    const skillId = req.params.skillId
 
     await dbRun(
-      'UPDATE user_skills SET practiced_count = practiced_count + 1, last_practiced = CURRENT_TIMESTAMP WHERE user_id = ? AND skill_id = ?',
+      `UPDATE user_skills
+       SET practiced_count = practiced_count + 1,
+           last_practiced = CURRENT_TIMESTAMP
+       WHERE user_id = ? AND skill_id = ?`,
       [userId, skillId]
-    );
+    )
 
-    const updated = await dbGet(
-      'SELECT s.*, us.practiced_count, us.last_practiced FROM skills s JOIN user_skills us ON s.id = us.skill_id WHERE us.user_id = ? AND us.skill_id = ?',
-      [userId, skillId]
-    );
-
-    res.json(updated);
+    res.json({ message: 'Skill practiced' })
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message })
   }
 });
 

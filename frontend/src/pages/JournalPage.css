@@ -1,3 +1,15 @@
+:root {
+  --green-light: #c5d6c6;
+  --green-dark: #67797a;
+  --blue-dark: #283047;
+  --blue-mid: #626a82;
+  --blue-mid-hover: #525b76;
+  --text-soft: rgba(40, 48, 71, 0.72);
+  --white-soft: rgba(255, 255, 255, 0.82);
+  --border-soft: rgba(40, 48, 71, 0.12);
+  --shadow-soft: 0 10px 25px rgba(32, 30, 80, 0.1);
+}
+
 .journal-page {
   display: flex;
   flex-direction: column;
@@ -12,9 +24,9 @@
   gap: 1rem;
   padding: 2rem;
   border-radius: 28px;
-  background: #c5d6c6;
-  border: 1px solid rgba(40, 48, 71, 0.12);
-  box-shadow: 0 10px 25px rgba(32, 30, 80, 0.1);
+  background: var(--green-light);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
 }
 
 .journal-kicker {
@@ -33,7 +45,7 @@
   margin: 0;
   font-size: 2.1rem;
   line-height: 1.1;
-  color: #283047;
+  color: var(--blue-dark);
   font-weight: 900;
 }
 
@@ -53,8 +65,8 @@
 
 .new-entry-btn {
   align-self: center;
-  background: #626a82;
-  color: #c5d6c6;
+  background: var(--blue-mid);
+  color: var(--green-light);
   border: none;
   border-radius: 16px;
   padding: 0.95rem 1.35rem;
@@ -65,17 +77,18 @@
 }
 
 .new-entry-btn:hover {
-  background: #525b76;
+  background: var(--blue-mid-hover);
   transform: translateY(-1px);
 }
 
 /* FORM CARD */
 .entry-form-card {
-  background: #c5d6c6;
+  background: var(--green-dark);
+  color: var(--green-light);
   padding: 1.8rem;
   border-radius: 24px;
-  border: 1px solid rgba(40, 48, 71, 0.12);
-  box-shadow: 0 10px 25px rgba(32, 30, 80, 0.1);
+  border: 1px solid rgba(197, 214, 198, 0.15);
+  box-shadow: var(--shadow-soft);
 }
 
 .form-card-header {
@@ -91,7 +104,7 @@
 
 .form-card-header p {
   margin: 0;
-  color: rgba(40, 48, 71, 0.74);
+  color: #283047;
   line-height: 1.6;
 }
 
@@ -109,11 +122,11 @@
 .form-group input,
 .form-group textarea {
   width: 100%;
-  background: #c5d6c6;
+  background: var(--green-light);
   border: 1px solid rgba(40, 48, 71, 0.14);
   border-radius: 14px;
   padding: 0.95rem 1rem;
-  color: #283047;
+  color: var(--blue-dark);
   font-family: inherit;
   font-size: 0.96rem;
   transition: all 0.2s ease;
@@ -126,13 +139,13 @@
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: rgba(40, 48, 71, 0.48);
+  color: rgba(40, 48, 71, 0.5);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #283047;
+  border-color: var(--blue-dark);
   box-shadow: 0 0 0 3px rgba(40, 48, 71, 0.12);
 }
 
@@ -144,7 +157,7 @@
 }
 
 .journal-mood-button {
-  background: #c5d6c6;
+  background: var(--green-light);
   border: 1px solid rgba(40, 48, 71, 0.14);
   border-radius: 14px;
   padding: 0.85rem 0.7rem;
@@ -152,18 +165,19 @@
   flex-direction: column;
   align-items: center;
   gap: 0.45rem;
-  transition: 0.2s;
-  color: #283047;
+  transition: 0.2s ease;
+  color: var(--blue-dark);
 }
 
 .journal-mood-button:hover {
-  background: rgba(98, 106, 130, 0.08);
+  background: #b9cab9;
+  transform: translateY(-1px);
 }
 
 .journal-mood-button.selected {
-  background: #67797a;
-  color: white;
-  border-color: transparent;
+  background: var(--green-dark);
+  color: var(--green-light);
+  border: 1px solid rgba(197, 214, 198, 0.3);
 }
 
 .journal-mood-icon {
@@ -177,7 +191,7 @@
   font-weight: 800;
 }
 
-/* BUTTONS */
+/* FORM BUTTONS */
 .form-actions {
   display: flex;
   gap: 0.85rem;
@@ -195,32 +209,33 @@
 }
 
 .save-btn {
-  background: #626a82;
-  color: #c5d6c6;
+  background: var(--blue-mid);
+  color: var(--green-light);
   box-shadow: 0 8px 18px rgba(32, 30, 80, 0.16);
 }
 
 .save-btn:hover {
-  background: #525b76;
+  background: var(--blue-mid-hover);
   transform: translateY(-1px);
 }
 
 .cancel-btn {
-  background: #67797a;
-  color: #c5d6c6;
+  background: var(--green-light);
+  color: var(--blue-dark);
 }
 
 .cancel-btn:hover {
-  background: #5c6c6d;
+  background: #b7c8b8;
 }
 
 /* ENTRIES SECTION */
 .entries-section {
-  background: #c5d6c6;
+  background: var(--green-dark);
+  color: var(--blue-dark);
   border-radius: 24px;
   padding: 1.8rem;
-  border: 1px solid rgba(40, 48, 71, 0.12);
-  box-shadow: 0 10px 25px rgba(32, 30, 80, 0.1);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
 }
 
 .entries-section-header {
@@ -233,27 +248,27 @@
 
 .entries-section-header h2 {
   margin: 0;
-  color: #283047;
+  color: var(--blue-dark);
   font-size: 1.5rem;
   font-weight: 900;
 }
 
 .entries-count {
-  background: #67797a;
-  color: #c5d6c6;
+  background: var(--green-dark);
+  color: var(--green-light);
   padding: 0.55rem 0.95rem;
   border-radius: 999px;
   font-size: 0.92rem;
   font-weight: 800;
 }
 
-/* EMPTY */
+/* EMPTY STATE */
 .empty-state {
   text-align: center;
   padding: 2rem 1rem;
   border-radius: 20px;
-  background: rgba(103, 121, 122, 0.14);
-  border: 1px dashed rgba(40, 48, 71, 0.16);
+  background: var(--green-light);
+  border: 1px dashed rgba(197, 214, 198, 0.2);
 }
 
 .empty-state-icon {
@@ -270,13 +285,13 @@
 
 .empty-state h3 {
   margin: 0 0 0.4rem 0;
-  color: #283047;
+  color: var(--green-dark);
   font-weight: 900;
 }
 
 .empty-state p {
   margin: 0;
-  color: rgba(40, 48, 71, 0.72);
+  color: #283047;
   line-height: 1.6;
 }
 
@@ -289,8 +304,8 @@
 
 /* ENTRY CARD */
 .entry-card {
-  background: #67797a;
-  color: white;
+  background: var(--green-light);
+  color: var(--green-dark);
   border-radius: 28px;
   padding: 1.35rem 1.4rem;
   box-shadow: 0 10px 24px rgba(32, 30, 80, 0.16);
@@ -302,7 +317,6 @@
   box-shadow: 0 14px 28px rgba(32, 30, 80, 0.2);
 }
 
-/* ENTRY TOP */
 .entry-header {
   display: flex;
   justify-content: space-between;
@@ -319,19 +333,19 @@
   margin: 0 0 0.35rem 0;
   font-size: 2rem;
   font-weight: 900;
-  color: #f2f5ee;
+  color: #283047;
   line-height: 1.1;
   word-break: break-word;
 }
 
 .entry-date {
   margin: 0;
-  color: rgba(255, 255, 255, 0.74);
+  color: #67797a;
   font-size: 0.88rem;
   font-weight: 600;
 }
 
-/* ACTIONS */
+/* ENTRY ACTIONS */
 .entry-actions {
   display: flex;
   align-items: center;
@@ -345,8 +359,8 @@
   padding: 0 1rem;
   border: none;
   border-radius: 999px;
-  background: #626a82;
-  color: #c5d6c6;
+  background: var(--blue-mid);
+  color: var(--green-light);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -358,12 +372,12 @@
 }
 
 .icon-btn:hover {
-  background: #525b76;
+  background: var(--blue-mid-hover);
   transform: translateY(-1px);
 }
 
 .edit-btn {
-  background: #626a82;
+  background: var(--blue-mid);
 }
 
 .delete-btn {
@@ -375,8 +389,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  background: #c5d6c6;
-  color: #283047;
+  background: var(--green-light);
+  color: var(--blue-dark);
   padding: 0.45rem 0.9rem;
   border-radius: 999px;
   font-size: 0.88rem;
@@ -397,7 +411,7 @@
 /* CONTENT */
 .entry-content {
   margin: 0;
-  color: rgba(255, 255, 255, 0.92);
+  color: #67797a;
   line-height: 1.7;
   font-size: 1rem;
   white-space: pre-wrap;
@@ -408,7 +422,7 @@
   margin-top: 1rem;
   padding: 0;
   background: transparent;
-  color: #c5d6c6;
+  color: var(--green-light);
   font-weight: 800;
   border: none;
 }
@@ -460,11 +474,23 @@
   }
 }
 
-.entry-mood-icon,
-.mood-icon,
-.mood-icon-small,
-.mood-icon-large {
+/* DEFAULT = unselected = dunkelblau */
+.journal-mood-button .journal-mood-icon {
   filter: brightness(0) saturate(100%)
-          invert(15%) sepia(10%) saturate(800%)
-          hue-rotate(180deg) brightness(60%);
+    invert(12%) sepia(20%) saturate(1200%)
+    hue-rotate(200deg) brightness(35%) !important;
+}
+
+/* HOVER = etwas heller dunkelblau */
+.journal-mood-button:hover .journal-mood-icon {
+  filter: brightness(0) saturate(100%)
+    invert(20%) sepia(15%) saturate(1000%)
+    hue-rotate(200deg) brightness(55%) !important;
+}
+
+/* SELECTED = hellgrün */
+.journal-mood-button.selected .journal-mood-icon {
+  filter: brightness(0) saturate(100%)
+    invert(90%) sepia(10%) saturate(200%)
+    hue-rotate(60deg) brightness(95%) !important;
 }
