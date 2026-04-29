@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react"
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import { useState } from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
-import Dashboard from "./pages/Dashboard"
-import JournalPage from "./pages/JournalPage"
-import SkillsPage from "./pages/SkillsPage"
-import LoginPage from "./pages/LoginPage"
-import Header from "./components/Header"
-import CalendarPage from "./pages/CalendarPage"
-import "./App.css"
+import Dashboard from './pages/Dashboard'
+import JournalPage from './pages/JournalPage'
+import SkillsPage from './pages/SkillsPage'
+import CalendarPage from './pages/CalendarPage'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
+import Header from './components/Header'
+
+import './App.css'
 
 function ProtectedRoute({ user, children }) {
   if (!user) {
@@ -20,48 +22,29 @@ function ProtectedRoute({ user, children }) {
 export default function App() {
   const [user, setUser] = useState(null)
 
-  useEffect(() => {
-    const savedUser = localStorage.getItem("user")
-
-    if (savedUser) {
-      setUser(JSON.parse(savedUser))
-    }
-  }, [])
-
-  const handleLogin = (userData, token) => {
-    localStorage.setItem("user", JSON.stringify(userData))
-    localStorage.setItem("token", token)
-    setUser(userData)
-  }
-
-  const handleLogout = () => {
-    localStorage.removeItem("user")
-    localStorage.removeItem("token")
-    setUser(null)
-  }
-
   return (
     <BrowserRouter>
       <div className="app">
-        {user && <Header user={user} onLogout={handleLogout} />}
+        {user && <Header />}
 
         <main className="main-content">
           <Routes>
             <Route
               path="/login"
               element={
-                user ? (
-                  <Navigate to="/dashboard" replace />
-                ) : (
-                  <LoginPage onLogin={handleLogin} />
-                )
+                user ? <Navigate to="/" replace /> : <LoginPage onLogin={setUser} />
               }
             />
 
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route
+              path="/register"
+              element={
+                user ? <Navigate to="/" replace /> : <RegisterPage onLogin={setUser} />
+              }
+            />
 
             <Route
-              path="/dashboard"
+              path="/"
               element={
                 <ProtectedRoute user={user}>
                   <Dashboard user={user} />
@@ -96,7 +79,7 @@ export default function App() {
               }
             />
 
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
       </div>

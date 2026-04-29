@@ -16,40 +16,6 @@ const createToken = (user) => {
   )
 }
 
-export const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers.authorization
-  let token = null
-
-  if (authHeader?.startsWith('Bearer ')) {
-    token = authHeader.split(' ')[1]
-  } else if (req.headers.cookie) {
-    const cookieToken = req.headers.cookie
-      .split(';')
-      .map((cookie) => cookie.trim())
-      .find((cookie) => cookie.startsWith('token='))
-
-    if (cookieToken) {
-      token = cookieToken.split('=')[1]
-    }
-  }
-
-  if (!token) {
-    return res.status(401).json({ error: 'Authentication token fehlt.' })
-  }
-
-  try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET)
-    req.user = {
-      id: payload.userId,
-      email: payload.email
-    }
-    next()
-  } catch (error) {
-    console.error('Token verification failed:', error)
-    res.status(401).json({ error: 'Ungültiges Authentifizierungs-Token.' })
-  }
-}
-
 const cookieOptions = {
   httpOnly: true,
   secure: process.env.NODE_ENV === 'production',

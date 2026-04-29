@@ -1,39 +1,30 @@
-import express from "express"
-import cors from "cors"
-import dotenv from "dotenv"
+import express from 'express'
+import cors from 'cors'
+import dotenv from 'dotenv'
+import cookieParser from 'cookie-parser'
 
-import userRoutes from "./routes/users.js"
-import moodRoutes from "./routes/moods.js"
-import entryRoutes from "./routes/entries.js"
-import skillRoutes from "./routes/skills.js"
-import { initializeDatabase } from "./utils/database.js"
-
+import authRoutes from './routes/auth.js'
+import entryRoutes from './routes/entries.js'
+import skillRoutes from './routes/skills.js'
 
 dotenv.config()
 
-const PORT = process.env.PORT || 3001
-
 const app = express()
 
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:5177',
+  credentials: true
+}))
+
 app.use(express.json())
+app.use(cookieParser())
 
-app.use("/api/users", userRoutes)
-app.use("/api/moods", moodRoutes)
-app.use("/api/entries", entryRoutes)
-app.use("/api/skills", skillRoutes)
+app.use('/api/auth', authRoutes)
+app.use('/api/entries', entryRoutes)
+app.use('/api/skills', skillRoutes)
 
-const startServer = async () => {
-  try {
-    await initializeDatabase()
+const PORT = process.env.PORT || 3001
 
-    app.listen(PORT, () => {
-      console.log(`Mood Tracker API running on http://localhost:${PORT}`)
-    })
-  } catch (error) {
-    console.error("Failed to start server:", error)
-    process.exit(1)
-  }
-}
-
-startServer()
+app.listen(PORT, () => {
+  console.log(`✅ Server läuft auf http://localhost:${PORT}`)
+})
