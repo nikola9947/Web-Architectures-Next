@@ -21,7 +21,9 @@ export default function Header({ user, onLogout }) {
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/journal">Journal</Link>
           <Link to="/skills">Skills</Link>
+          <Link to="/calendar">Calendar</Link>
         </nav>
+
 
         <div className="header-user">
           <span className="user-name">{user?.username}</span>
