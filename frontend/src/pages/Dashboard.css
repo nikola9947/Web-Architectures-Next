@@ -23,7 +23,7 @@
   border-radius: 28px;
   background:
     radial-gradient(circle at top left, oklch(78.427% 0.05609 146.714 / 0.22), transparent 32%),
-    linear-gradient(135deg, rgba(82, 91, 118, 0.06), rgba(32, 30, 80, 0.08)),
+    linear-gradient(135deg, rgba(58, 113, 113, 0.06), rgba(22, 51, 82, 0.08)),
     #ffffff;
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
@@ -60,7 +60,7 @@
 }
 
 .dashboard-hero {
-  background: #C5D6C6;
+  background: #cae0ec;
 }
 
 .dashboard-hero-badge {
@@ -70,7 +70,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 24px;
-  background: #626a82;
+  background: #3a7171;
   padding: 1.5rem;
   box-shadow: var(--shadow);
 }
@@ -107,26 +107,26 @@
 }
 
 .card {
-  background: #67797A;
+  background: #91b0bd;
   border-radius: 20px;
   padding: 1.5rem;
 
-  border: 1px solid rgba(32, 30, 80, 0.08);
-  box-shadow: 0 10px 25px rgba(32, 30, 80, 0.1);
+  border: 1px solid rgba(22, 51, 82, 0.08);
+  box-shadow: 0 10px 25px rgba(22, 51, 82, 0.1);
 
-  color: #201E50; /* wichtig für Lesbarkeit */
+  color: #163352; /* wichtig für Lesbarkeit */
   transition: 0.2s;
 }
 
 .card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 15px 35px rgba(32, 30, 80, 0.15);
+  box-shadow: 0 15px 35px rgba(22, 51, 82, 0.15);
 }
 
 .compact-card {
-  background: #C5D6C6;
+  background: #cae0ec;
   border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(32, 30, 80, 0.1);
+  box-shadow: 0 8px 20px rgba(22, 51, 82, 0.1);
 }
 
 .section-heading {
@@ -152,9 +152,9 @@
   border-radius: 20px;
   padding: 1.15rem;
   border: 1px solid var(--border);
-  background: #67797A;
+  background: #91b0bd;
   color: white;
-  box-shadow: 0 6px 16px rgba(32, 30, 80, 0.15);
+  box-shadow: 0 6px 16px rgba(22, 51, 82, 0.15);
 }
 
 .latest-mood-name {
@@ -172,7 +172,7 @@
 }
 
 .latest-mood-intensity span {
-  color: #C5D6C6;
+  color: #cae0ec;
   font-weight: 900;
 }
 
@@ -191,10 +191,10 @@
 .summary-tile {
   border-radius: 18px;
   padding : 1.25rem;
-  background: #67797A;
+  background: #91b0bd;
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 6px 16px rgba(32, 30, 80, 0.15);
+  box-shadow: 0 6px 16px rgba(22, 51, 82, 0.15);
 }
 
 .summary-label {
@@ -225,7 +225,7 @@
   justify-content: space-between;
   align-items: center;
 
-  background: #C5D6C6;
+  background: #cae0ec;
   border-radius: 16px;
   padding: 16px 20px;
 
@@ -247,8 +247,8 @@
 }
 
 .action-btn {
-  background: #626A82;
-  color: #C5D6C6;
+  background: #3a7171;
+  color: #cae0ec;
 
   border: none;
   border-radius: 12px;
@@ -260,7 +260,7 @@
 }
 
 .action-btn:hover {
-  background: #525B76;
+  background: #59a9a1;
 }
 
 .history-list {
@@ -277,7 +277,7 @@
   padding: 1rem 1.1rem;
   border-radius: 18px;
   border: 1px solid var(--border);
-  background: #C5D6C6;
+  background: #cae0ec;
 }
 
 .history-icon {
@@ -463,8 +463,8 @@
 .mood-button,
 .journal-mood-button {
   background: #2F3A55; /* dunkles blau */
-  border: 2px solid #C5D6C6;
-  color: #C5D6C6;
+  border: 2px solid #cae0ec;
+  color: #cae0ec;
   transition: 0.2s;
 }
 
@@ -472,8 +472,8 @@
 .mood-button .mood-icon,
 .journal-mood-button .journal-mood-icon {
   filter: brightness(0) saturate(100%)
-          invert(88%) sepia(10%) saturate(238%)
-          hue-rotate(42deg) brightness(95%) contrast(93%);
+          invert(90%) sepia(12%) saturate(200%)
+          hue-rotate(45deg) brightness(94%) contrast(92%);
 }
 
 /* =========================
@@ -482,17 +482,17 @@
 
 .mood-button.selected,
 .journal-mood-button.selected {
-  background: #C5D6C6; /* hellgrün */
-  color: #283047;
-  border: 2px solid #C5D6C6;
+  background: #cae0ec; /* hellgrün */
+  color: #163352;
+  border: 2px solid #cae0ec;
 }
 
 /* ICON = dunkelblau */
 .mood-button.selected .mood-icon,
 .journal-mood-button.selected .journal-mood-icon {
   filter: brightness(0) saturate(100%)
-          invert(18%) sepia(28%) saturate(948%)
-          hue-rotate(192deg) brightness(91%) contrast(92%);
+          invert(15%) sepia(30%) saturate(1000%)
+          hue-rotate(200deg) brightness(88%) contrast(91%);
 }
 
 /* =========================
@@ -502,7 +502,7 @@
 .mood-button:hover,
 .journal-mood-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(32, 30, 80, 0.2);
+  box-shadow: 0 6px 16px rgba(22, 51, 82, 0.2);
 }
 
 .empty-icon-img {
@@ -525,10 +525,10 @@
   outline: none;
   background: linear-gradient(
     90deg,
-    #c5d6c6 0%,
-    #a2c3a4 35%,
-    #869d96 65%,
-    #626a82 100%
+    #cae0ec 0%,
+    #59a9a1 35%,
+    #91b0bd 65%,
+    #3a7171 100%
   );
 }
 
@@ -538,10 +538,10 @@
   border-radius: 999px;
   background: linear-gradient(
     90deg,
-    #c5d6c6 0%,
-    #a2c3a4 35%,
-    #869d96 65%,
-    #626a82 100%
+    #cae0ec 0%,
+    #59a9a1 35%,
+    #91b0bd 65%,
+    #3a7171 100%
   );
 }
 
@@ -551,10 +551,10 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #283047;
+  background: #163352;
   border: none;
   margin-top: -4px;
-  box-shadow: 0 4px 10px rgba(32, 30, 80, 0.2);
+  box-shadow: 0 4px 10px rgba(22, 51, 82, 0.2);
 }
 
 /* Firefox */
@@ -564,10 +564,10 @@
   border: none;
   background: linear-gradient(
     90deg,
-    #c5d6c6 0%,
-    #a2c3a4 35%,
-    #869d96 65%,
-    #626a82 100%
+    #cae0ec 0%,
+    #59a9a1 35%,
+    #91b0bd 65%,
+    #3a7171 100%
   );
 }
 
@@ -575,9 +575,9 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #283047;
+  background: #163352;
   border: none;
-  box-shadow: 0 4px 10px rgba(32, 30, 80, 0.2);
+  box-shadow: 0 4px 10px rgba(22, 51, 82, 0.2);
 }
 /* DEFAULT = dunkelblau Icons */
 .journal-mood-icon {

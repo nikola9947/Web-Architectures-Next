@@ -1,9 +1,27 @@
+:root {
+  --bg-main: #cae0ec;
+  --bg-card: #91b0bd;
+  --bg-accent: #3a7171;
+  --primary: #163352;
+  --accent: #59a9a1;
+  --purple-soft: #c5b0cd;
+
+  --text-main: #163352;
+  --text-soft: rgba(22, 51, 82, 0.7);
+
+  --shadow-soft: 0 10px 25px rgba(22, 51, 82, 0.15);
+}
+
+/* APP LAYOUT */
 .app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background: var(--bg-main);
+  color: var(--text-main);
 }
 
+/* CONTENT */
 .main-content {
   flex: 1;
   width: 100%;
@@ -12,16 +30,29 @@
   padding: 2rem;
 }
 
+/* LOADING */
 .loading {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-secondary);
+  color: var(--text-soft);
   font-size: 1.2rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
+/* OPTIONAL: GLOBAL SMOOTH LOOK */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-main);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* MOBILE */
 @media (max-width: 768px) {
   .main-content {
     padding: 1rem;

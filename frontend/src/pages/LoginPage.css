@@ -9,11 +9,11 @@
 .login-card {
   width: 100%;
   max-width: 460px;
-  background: #c5d6c6;
-  color: #283047;
+  background: #cae0ec;
+  color: #163352;
   border-radius: 28px;
   padding: 2rem;
-  box-shadow: 0 18px 40px rgba(32, 30, 80, 0.18);
+  box-shadow: 0 18px 40px rgba(22, 51, 82, 0.18);
 }
 
 .login-kicker {
@@ -22,7 +22,7 @@
   letter-spacing: 0.12em;
   font-size: 0.78rem;
   font-weight: 900;
-  color: #67797a;
+  color: #3a7171;
 }
 
 .login-card h1 {
@@ -34,7 +34,7 @@
 .login-subtitle {
   margin: 0.8rem 0 1.5rem;
   line-height: 1.6;
-  color: rgba(40, 48, 71, 0.75);
+  color: rgba(22, 51, 82, 0.75);
 }
 
 .login-form {
@@ -54,17 +54,17 @@
   border: none;
   border-radius: 14px;
   padding: 0.95rem 1rem;
-  background: #67797a;
-  color: #c5d6c6;
+  background: #91b0bd;
+  color: #cae0ec;
   font: inherit;
 }
 
 .login-group input::placeholder {
-  color: rgba(197, 214, 198, 0.65);
+  color: rgba(202, 224, 236, 0.65);
 }
 
 .login-group input:focus {
-  outline: 3px solid rgba(40, 48, 71, 0.18);
+  outline: 3px solid rgba(22, 51, 82, 0.18);
 }
 
 .login-error {
@@ -83,17 +83,17 @@
 }
 
 .login-btn {
-  background: #626a82;
-  color: #c5d6c6;
+  background: #3a7171;
+  color: #cae0ec;
 }
 
 .login-btn:hover {
-  background: #525b76;
+  background: #59a9a1;
 }
 
 .switch-mode-btn {
   width: 100%;
   margin-top: 1rem;
   background: transparent;
-  color: #283047;
+  color: #163352;
 }

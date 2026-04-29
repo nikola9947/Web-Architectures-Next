@@ -3,7 +3,7 @@
   top: 0;
   z-index: 100;
 
-  background: rgba(124, 150, 125, 0.6); /* dein Grün transparent */
+  background: rgba(197, 176, 205, 0.7); 
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(0px);
 
@@ -27,7 +27,7 @@
 .header-logo {
   font-size: 2rem;
   font-weight: 650;
-  color: #C5D6C6;
+  color: #cae0ec;
   letter-spacing: 0.5px;
   text-decoration: none;
 }
@@ -39,7 +39,7 @@
 }
 
 .header-nav a {
-  color: #283047;
+  color: #163352;
   padding: 0.6rem 1rem;
   border-radius: 999px;
   font-weight: 600;
@@ -49,13 +49,13 @@
 /* Hover */
 .header-nav a:hover {
   background: rgba(255,255,255,0.15);
-  color: #C5D6C6;
+  color: #cae0ec;
 }
 
 /* Active */
 .header-nav a.active {
   background: rgba(255,255,255,0.25);
-  color: #C5D6C6;
+  color: #cae0ec;
 }
 
 /* USER */
@@ -67,7 +67,7 @@
 
 /* Username */
 .user-name {
-  background: #283047;
+  background: #163352;
   padding: 0.4rem 0.8rem;
   border-radius: 999px;
   font-size: 0.85rem;
@@ -76,8 +76,8 @@
 
 /* Logout */
 .logout-btn {
-  background: #C5D6C6;
-  color: #283047;
+  background: #cae0ec;
+  color: #163352;
   padding: 0.6rem 1rem;
   border-radius: 999px;
   font-weight: 700;
@@ -85,7 +85,7 @@
 }
 
 .logout-btn:hover {
-  background: #7C967D;
+  background: #59a9a1;
 }
 
 /* MOBILE */

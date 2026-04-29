@@ -37,51 +37,42 @@ export const getCurrentUser = () => {
 ================================= */
 
 export const getMoods = () => {
-  return axios.get(`${API_BASE_URL}/moods`)
+  return axios.get(`${API_BASE_URL}/moods`, { withCredentials: true })
 }
 
 export const createMood = (mood, intensity, notes) => {
-  return axios.post(`${API_BASE_URL}/moods`, {
-    mood,
-    intensity,
-    notes
-  })
+  return axios.post(
+    `${API_BASE_URL}/moods`,
+    { mood, intensity, notes },
+    { withCredentials: true }
+  )
 }
-
-export const getMoodStats = () => {
-  return axios.get(`${API_BASE_URL}/moods/stats/summary`, {
-    withCredentials: true
-  })
-}
-
-/* ===============================
-   JOURNAL
-================================= */
 
 export const getEntries = () => {
-  return axios.get(`${API_BASE_URL}/entries`)
+  return axios.get(`${API_BASE_URL}/entries`, { withCredentials: true })
 }
 
 export const createEntry = (title, content, mood) => {
-  return axios.post(`${API_BASE_URL}/entries`, {
-    title,
-    content,
-    mood
-  })
+  return axios.post(
+    `${API_BASE_URL}/entries`,
+    { title, content, mood },
+    { withCredentials: true }
+  )
 }
 
 export const updateEntry = (id, title, content, mood) => {
-  return axios.put(`${API_BASE_URL}/entries/${id}`, {
-    title,
-    content,
-    mood
-  })
+  return axios.put(
+    `${API_BASE_URL}/entries/${id}`,
+    { title, content, mood },
+    { withCredentials: true }
+  )
 }
 
 export const deleteEntry = (id) => {
-  return axios.delete(`${API_BASE_URL}/entries/${id}`)
+  return axios.delete(`${API_BASE_URL}/entries/${id}`, {
+    withCredentials: true
+  })
 }
-
 /* ===============================
    SKILLS
 ================================= */

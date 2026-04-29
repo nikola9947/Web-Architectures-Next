@@ -36,17 +36,17 @@
   align-items: center;
   gap: 0.55rem;
   padding: 1rem 0.75rem;
-  background: #283047;
-  border: 2px solid #C5D6C6;
+  background: #163352;
+  border: 2px solid #cae0ec;
   border-radius: 18px;
   color: var(--text-secondary);
-  box-shadow: 0 4px 16px rgba(32, 30, 80, 0.05);
+  box-shadow: 0 4px 16px rgba(22, 51, 82, 0.05);
 }
 
 .mood-button:hover {
   transform: translateY(-2px);
   border-color: var(--primary-soft);
-  background: #7C967D;
+  background: #59a9a1;
 }
 
 .mood-button.selected {
@@ -95,9 +95,9 @@
 
   background: linear-gradient(
     90deg,
-    #C5D6C6 0%,
-    #7C967D 50%,
-    #626A82 100%
+    #cae0ec 0%,
+    #59a9a1 50%,
+    #3a7171 100%
   );
 }
 
@@ -106,7 +106,7 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #201E50;
+  background: #163352;
   cursor: pointer;
 }
 
@@ -170,7 +170,7 @@
 }
 
 .mood-tracker textarea {
-  background: #C5D6C6 !important;
-  border: 1px solid rgba(32, 30, 80, 0.1) !important;
-  color: #201E50 !important;
+  background: #cae0ec !important;
+  border: 1px solid rgba(22, 51, 82, 0.1) !important;
+  color: #163352 !important;
 }

@@ -1,22 +1,22 @@
 :root {
-  --primary: #201E50;
-  --secondary: #525B76;
-  --accent: #A2C3A4;
-  --accent-light: #C4F1BE;
+  --primary: #163352;
+  --secondary: #3a7171;
+  --accent: #59a9a1;
+  --accent-light: #cae0ec;
 
-  --bg-main: #626A82;
+  --bg-main: #3a7171;
   --bg-card: #ffffff;
 
-  --text-main: #201E50;
-  --text-secondary: #525B76;
-  --text-muted: #869D96;
+  --text-main: #163352;
+  --text-secondary: #3a7171;
+  --text-muted: #91b0bd;
 
-  --border: rgba(32, 30, 80, 0.08);
+  --border: rgba(22, 51, 82, 0.08);
 
-  --shadow: 0 10px 25px rgba(32, 30, 80, 0.08);
-  --shadow-hover: 0 16px 35px rgba(32, 30, 80, 0.12);
+  --shadow: 0 10px 25px rgba(22, 51, 82, 0.08);
+  --shadow-hover: 0 16px 35px rgba(22, 51, 82, 0.12);
 
-  --gradient-main: linear-gradient(135deg, #525B76, #201E50);
+  --gradient-main: linear-gradient(135deg, #3a7171, #163352);
 }
 
 /* RESET */

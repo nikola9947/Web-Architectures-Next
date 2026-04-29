@@ -1,19 +1,19 @@
 :root {
-  --primary: #201E50;
-  --secondary: #525B76;
-  --accent: #7C967D;
-  --accent-soft: #C4F1BE;
-  --accent-input: #C5D6C6;
-  --text: #201E50;
-  --text-h: #201E50;
-  --text-muted: #6f7892;
-  --surface: #C4F1BE;
+  --primary: #163352;
+  --secondary: #3a7171;
+  --accent: #59a9a1;
+  --accent-soft: #cae0ec;
+  --accent-input: #cae0ec;
+  --text: #163352;
+  --text-h: #163352;
+  --text-muted: #3a7171;
+  --surface: #cae0ec;
   --surface-light: #ffffff;
-  --border: rgba(32, 30, 80, 0.12);
-  --accent-bg: rgba(124, 150, 125, 0.12);
-  --accent-border: rgba(124, 150, 125, 0.4);
+  --border: rgba(22, 51, 82, 0.12);
+  --accent-bg: rgba(89, 169, 161, 0.12);
+  --accent-border: rgba(89, 169, 161, 0.4);
   --social-bg: rgba(255, 255, 255, 0.75);
-  --shadow: 0 10px 24px rgba(32, 30, 80, 0.12);
+  --shadow: 0 10px 24px rgba(22, 51, 82, 0.12);
 }
 
 * {
@@ -23,7 +23,7 @@
 body {
   margin: 0;
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #626A82;
+  background: #3a7171;
   color: var(--text);
 }
 
@@ -270,10 +270,10 @@ body {
 .journal-form input,
 .journal-form textarea {
   background: var(--accent-input);
-  border: 1px solid rgba(32, 30, 80, 0.1);
+  border: 1px solid rgba(22, 51, 82, 0.1);
   border-radius: 12px;
   padding: 0.8rem;
-  color: #201E50;
+  color: #163352;
   font-family: inherit;
   transition: 0.2s;
 }
@@ -282,18 +282,18 @@ body {
 .journal-form textarea:focus {
   outline: none;
   border-color: var(--secondary);
-  box-shadow: 0 0 0 3px rgba(82, 91, 118, 0.12);
+  box-shadow: 0 0 0 3px rgba(58, 113, 113, 0.12);
 }
 
 .journal-form textarea::placeholder,
 .mood-tracker textarea::placeholder {
-  color: rgba(32, 30, 80, 0.5);
+  color: rgba(22, 51, 82, 0.5);
 }
 
 .journal-form select {
   margin-top: 8px;
   padding: 10px 12px;
-  border: 1px solid rgba(32, 30, 80, 0.12);
+  border: 1px solid rgba(22, 51, 82, 0.12);
   border-radius: 12px;
   font-size: 15px;
   background: var(--accent-input);
@@ -303,7 +303,7 @@ body {
 .journal-form select:focus {
   outline: none;
   border-color: var(--secondary);
-  box-shadow: 0 0 0 3px rgba(82, 91, 118, 0.12);
+  box-shadow: 0 0 0 3px rgba(58, 113, 113, 0.12);
 }
 
 .save-button {
@@ -329,7 +329,7 @@ body {
 }
 
 .entry-card {
-  border: 1px solid rgba(32, 30, 80, 0.12);
+  border: 1px solid rgba(22, 51, 82, 0.12);
   border-radius: 14px;
   padding: 14px;
   background: #fff;
@@ -348,7 +348,7 @@ body {
 
 .entry-head span {
   border-radius: 999px;
-  background: rgba(197, 214, 198, 0.8);
+  background: rgba(202, 224, 236, 0.8);
   padding: 4px 10px;
   font-size: 0.9rem;
 }
@@ -366,11 +366,11 @@ body {
 
 /* Mood Tracker additions */
 .mood-tracker textarea {
-  background: #C5D6C6;
-  border: 1px solid rgba(32, 30, 80, 0.1);
+  background: #cae0ec;
+  border: 1px solid rgba(22, 51, 82, 0.1);
   border-radius: 12px;
   padding: 0.8rem;
-  color: #201E50;
+  color: #163352;
   font-family: inherit;
   transition: 0.2s;
 }
@@ -378,5 +378,5 @@ body {
 .mood-tracker textarea:focus {
   outline: none;
   border-color: var(--secondary);
-  box-shadow: 0 0 0 3px rgba(82, 91, 118, 0.15);
+  box-shadow: 0 0 0 3px rgba(58, 113, 113, 0.15);
 }
