@@ -78,8 +78,8 @@ export default function JournalPage() {
         getMoods()
       ])
 
-      setEntries(entriesResponse.data)
-      setMoods(moodsResponse.data)
+      setEntries(entriesResponse.data || [])
+      setMoods(moodsResponse.data || [])
     } catch (error) {
       console.error('Failed to load data:', error)
     } finally {
@@ -130,7 +130,7 @@ export default function JournalPage() {
       resetForm()
       await loadData()
     } catch (error) {
-      console.error('Failed to save entry:', error)
+      console.error('Failed to save entry:', error.response?.data || error.message)
       alert('Failed to save entry')
     }
   }
@@ -145,7 +145,7 @@ export default function JournalPage() {
       }
       await loadData()
     } catch (error) {
-      console.error('Failed to delete entry:', error)
+      console.error('Failed to delete entry:', error.response?.data || error.message)
       alert('Failed to delete entry')
     }
   }
@@ -171,6 +171,7 @@ export default function JournalPage() {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString)
+
     return `${date.toLocaleDateString()} • ${date.toLocaleTimeString([], {
       hour: '2-digit',
       minute: '2-digit'
@@ -212,6 +213,7 @@ export default function JournalPage() {
         </div>
 
         <button
+          data-cy="new-entry-button"
           className="new-entry-btn"
           onClick={() => {
             if (showForm && !editingId) {
@@ -246,6 +248,7 @@ export default function JournalPage() {
             <div className="form-group">
               <label htmlFor="title">Title</label>
               <input
+                data-cy="entry-title-input"
                 id="title"
                 type="text"
                 value={formData.title}
@@ -264,6 +267,7 @@ export default function JournalPage() {
                   <button
                     key={mood}
                     type="button"
+                    data-cy={`mood-button-${mood}`}
                     className={`journal-mood-button ${formData.mood_id === mood ? 'selected' : ''}`}
                     onClick={() =>
                       setFormData({
@@ -287,6 +291,7 @@ export default function JournalPage() {
             <div className="form-group">
               <label htmlFor="customMood">Or type a custom mood (optional)</label>
               <input
+                data-cy="custom-mood-input"
                 id="customMood"
                 type="text"
                 value={formData.customMood}
@@ -305,6 +310,7 @@ export default function JournalPage() {
             <div className="form-group">
               <label htmlFor="content">Your thoughts</label>
               <textarea
+                data-cy="entry-content-input"
                 id="content"
                 value={formData.content}
                 onChange={(e) => setFormData({ ...formData, content: e.target.value })}
@@ -315,9 +321,14 @@ export default function JournalPage() {
             </div>
 
             <div className="form-actions">
-              <button type="submit" className="save-btn">
+              <button
+                data-cy="save-entry-button"
+                type="submit"
+                className="save-btn"
+              >
                 {editingId ? 'Save changes' : 'Save entry'}
               </button>
+
               <button type="button" className="cancel-btn" onClick={resetForm}>
                 Cancel
               </button>
@@ -355,7 +366,11 @@ export default function JournalPage() {
               const moodLabel = getMoodLabel(entry.mood)
 
               return (
-                <article key={entry.id} className="entry-card">
+                <article
+                  key={entry.id}
+                  className="entry-card"
+                  data-cy="journal-entry-card"
+                >
                   <div className="entry-header">
                     <div className="entry-header-main">
                       <h3>{entry.title}</h3>
@@ -371,6 +386,7 @@ export default function JournalPage() {
                       >
                         Edit
                       </button>
+
                       <button
                         type="button"
                         className="icon-btn delete-btn"

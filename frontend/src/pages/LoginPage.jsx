@@ -12,44 +12,74 @@ export default function LoginPage({ onLogin }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
     setError('')
 
     try {
       const res = await loginUser(email, password)
+
       onLogin(res.data.user)
+
       navigate('/')
     } catch (err) {
-      setError(err.response?.data?.error || 'Login fehlgeschlagen.')
+      setError(
+        err.response?.data?.error ||
+        'Login fehlgeschlagen.'
+      )
     }
   }
 
   return (
     <div className="auth-page">
-      <form className="auth-card" onSubmit={handleSubmit}>
+      <form
+        className="auth-card"
+        onSubmit={handleSubmit}
+      >
         <h1>Login</h1>
 
-        {error && <p className="auth-error">{error}</p>}
+        <p className="auth-subtitle">
+          Welcome back to your Mood Tracker
+        </p>
+
+        {error && (
+          <p
+            data-cy="error-message"
+            className="auth-error"
+          >
+            {error}
+          </p>
+        )}
 
         <input
+          data-cy="email-input"
           type="email"
-          placeholder="E-Mail"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
 
         <input
+          data-cy="password-input"
           type="password"
-          placeholder="Passwort"
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
 
-        <button type="submit">Einloggen</button>
+        <button
+          data-cy="login-button"
+          type="submit"
+        >
+          Login
+        </button>
 
-        <p>
-          Noch keinen Account? <Link to="/register">Registrieren</Link>
+        <p className="auth-switch">
+          Noch keinen Account?{' '}
+          <Link to="/register">
+            Registrieren
+          </Link>
         </p>
       </form>
     </div>
